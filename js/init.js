@@ -1,3 +1,9 @@
+var grapher, grapherView;
 $(document).ready(function(){
-	console.log("hello world");
+	grapher = new Grapher();
+	
+	grapherView = new GrapherView({
+		model: grapher,
+		el: $(".grapher"),
+	});
 });
