@@ -7,15 +7,9 @@ $(document).ready(function(){
 		el: $(".grapher"),
 	});
 
-	grapher.set("viewport", {
-		width: window.innerWidth,
-		height: window.innerHeight,
-	});
+	grapher.camera.get("viewport").set(window.innerWidth, window.innerHeight);
 
 	$(window).resize(function(){
-		grapher.set("viewport", {
-			width: window.innerWidth,
-			height: window.innerHeight,
-		});
+		grapher.camera.get("viewport").set(window.innerWidth, window.innerHeight);
 	});
 });

@@ -1,12 +1,10 @@
 var GrapherView = Backbone.View.extend({
 	initialize: function(){
-		this.listenTo(this.model, "change:viewport", this.viewportResize);
+		this.listenTo(this.model.camera.get("viewport"), "change", this.viewportResize);
 	},
 
 	viewportResize: function(){
-		console.log("ahoj");
-		
-		this.$(".viewport").width(this.model.get("viewport").width);
-		this.$(".viewport").height(this.model.get("viewport").height);
+		this.$(".viewport").width(this.model.camera.get("viewport").x);
+		this.$(".viewport").height(this.model.camera.get("viewport").y);
 	}
 });
