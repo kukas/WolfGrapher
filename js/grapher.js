@@ -1,6 +1,9 @@
+var Functions = Backbone.Collection.extend({
+	model: Function
+});
+
 var Grapher = Backbone.Model.extend({
-	defaults: {
-	},
+	functions: new Functions(),
 
 	camera: new Camera(),
 });

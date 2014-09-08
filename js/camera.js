@@ -2,25 +2,7 @@ var Camera = Backbone.Model.extend({
 	defaults: {
 		viewport: new Vector(),
 		position: new Vector(),
-		scale: new Vector()
-	},
-
-	setViewport: function(x, y){
-		this.get("viewport").set(x, y);
-
-		this.trigger("change:viewport");
-	},
-
-	setPosition: function(x, y){
-		this.get("position").set(x, y);
-
-		this.trigger("change:position");
-	},
-
-	setScale: function(x, y){
-		this.get("scale").set(x, y);
-
-		this.trigger("change:scale");
+		scale: new Vector(20, 20)
 	},
 
 	/**
@@ -54,8 +36,8 @@ var Camera = Backbone.Model.extend({
 	 */
 	bounds: function(){
 		return {
-			topLeft: new Vec2(this.tox(0), this.toy(-this.viewport.y)),
-			bottomRight: new Vec2(this.tox(this.viewport.x), this.toy(this.viewport.y))
+			topLeft: new Vector(this.tox(0), this.toy(-this.get("viewport").y)),
+			bottomRight: new Vector(this.tox(this.get("viewport").x), this.toy(this.get("viewport").y))
 		};
 	},
 
@@ -66,7 +48,7 @@ var Camera = Backbone.Model.extend({
 	 * @return {bool}
 	 */
 	inCanvas: function(x, y){
-		if(x < 0 || x > this.viewport.x || y < 0 || y > this.viewport.y)
+		if(x < 0 || x > this.get("viewport").x || y < 0 || y > this.get("viewport").y)
 			return false;
 		return true;
 	},
