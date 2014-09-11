@@ -89,32 +89,8 @@ var GrapherView = Backbone.View.extend({
 		ctx.strokeStyle = "#D7D49A";
 		var precision = 2;
 		// funkce
-		this.model.functions.each(function(func){
-			var xPixel = 1/camera.get("scale").x;
-			var lastY = 0;
-			// for(var x=bounds.topLeft.x; x<bounds.bottomRight.x; x+=xPixel){
-			ctx.beginPath();
-			for(var x=0; x<width; x += precision){
-				var tox = camera.tox(x);
-				var y = func.f(tox);
-
-				var tx = camera.tx(tox);
-				var ty = camera.ty(y);
-
-				if(camera.inCanvas(tx, ty)){
-					ctx.lineTo(tx, ty, 1, ty-lastY);
-					// ctx.fillRect(tx, ty, 1, ty-lastY);
-					// ctx.fillText(ty+" "+lastY, tx, ty);
-				}
-				// else {
-				// 	ctx.stroke();
-				// 	ctx.closePath();
-				// }
-				lastY = ty;
-			}
-			ctx.stroke();
-			ctx.closePath();
-		}, this);
+		this.model.inputView.plot(ctx, camera, width);
+		// this.model.functions.invoke("plot", ctx, camera);
 
 		// crosshair
 		ctx.fillStyle = "#7D9F85";

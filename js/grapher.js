@@ -16,6 +16,19 @@ var Grapher = Backbone.Model.extend({
 		mouseDown: false,
 	},
 
+	input: new Function({
+		functionString: "x"
+	}),
+	inputView: null,
+
+	initialize: function(){
+		this.inputView = new InputView({
+			model: this.input,
+			
+			el: $(".grapher .function-add"),
+		});
+	},
+
 	mouseHandler: function(e){
 		// console.log(e);
 		var type = e.type,

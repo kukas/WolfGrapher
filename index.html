@@ -16,15 +16,6 @@
 	<script src="libs/underscore.min.js"></script>
 	<script src="libs/backbone.min.js"></script>
 	<script src="libs/less-1.7.4.min.js"></script>
-	
-	<!-- js -->
-	<script src="js/vector.js"></script>
-	<script src="js/camera.js"></script>
-	<script src="js/function.js"></script>
-	<script src="js/functionView.js"></script>
-	<script src="js/grapher.js"></script>
-	<script src="js/grapherView.js"></script>
-	<script src="js/init.js"></script>
 </head>
 <body>
 	<div class="grapher">
@@ -32,7 +23,13 @@
 		<div class="left menu">
 			<div class="function-add function-view">
 				<div class="function-id">f1</div>
-				<div class="function-edit" contenteditable>y = x*x</div>
+				<div class="function-menu">
+					<i class="fa fa-chevron-right"></i>
+				</div>
+				<div class="function-text">
+					<span class="y-equals">y = </span>
+					<div class="function-edit" contenteditable></div>
+				</div>
 				<div class="cleaner"></div>
 			</div>
 			<div class="function-list">
@@ -45,5 +42,33 @@
 			&copy; Jirka Balhar
 		</div>
 	</div>
+	<script type="text/template" id="function-view-template">
+		<div class="function-view">
+			<div class="function-id" style="background-color: <%= color%>;">f<%= id%></div>
+			<div class="function-menu">
+				<a href="#" class="menu-roll"><i class="fa fa-caret-square-o-down"></i></a>
+				<% if (visible) { %>
+					<a href="#" class="toggle-visibility"><i class="fa fa-eye"></i></a>
+				<% } else { %>
+					<a href="#" class="toggle-visibility"><i class="fa fa-eye-slash"></i></a>
+				<% } %>
+				<a href="#" class="remove"><i class="fa fa-remove"></i></a>
+			</div>
+			<div class="function-text">
+				<span class="y-equals">y = </span>
+				<span class="function-edit" contenteditable><%= functionString%></span>
+			</div>
+			<div class="cleaner"></div>
+		</div>
+	</script>
+
+	<script src="js/vector.js"></script>
+	<script src="js/camera.js"></script>
+	<script src="js/function.js"></script>
+	<script src="js/functionView.js"></script>
+	<script src="js/grapher.js"></script>
+	<script src="js/grapherView.js"></script>
+	<script src="js/inputView.js"></script>
+	<script src="js/init.js"></script>
 </body>
 </html>
