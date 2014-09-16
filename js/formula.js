@@ -1,11 +1,12 @@
-var Function = Backbone.Model.extend({
+var Formula = Backbone.Model.extend({
 	initialize: function(){
-		this.listenTo(this, "change:functionString", this.parseFunction);
-		this.parseFunction();
+		this.listenTo(this, "change:functionString", this.parseFormula);
+		this.parseFormula();
 	},
 
 	defaults: function(){
 		return {
+			// id: 0,
 			functionString: "",
 			fancyString: "",
 			color: "#4E5E5B",
@@ -14,7 +15,7 @@ var Function = Backbone.Model.extend({
 		};
 	},
 
-	parseFunction: function(){
+	parseFormula: function(){
 		var functionString = this.get("functionString");
 		var fancyString = functionString.replace(/-?[0-9]+(\.[0-9]+)?/g, "<span class='scrollable-number'>$&</span>");
 		

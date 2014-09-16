@@ -90,7 +90,9 @@ var GrapherView = Backbone.View.extend({
 		var precision = 2;
 		// funkce
 		this.model.inputView.plot(ctx, camera, width);
-		// this.model.functions.invoke("plot", ctx, camera);
+		this.model.formulas.each(function(formula){
+			formula.view.plot(ctx, camera, width);
+		});
 
 		// crosshair
 		ctx.fillStyle = "#7D9F85";

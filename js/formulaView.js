@@ -1,4 +1,4 @@
-var FunctionView = Backbone.View.extend({
+var FormulaView = Backbone.View.extend({
 	tagName: "div",
 
 	template: _.template($("#function-view-template").html()),
@@ -17,14 +17,14 @@ var FunctionView = Backbone.View.extend({
 	initialize: function(){
 		// this.listenTo(this.model, "change", this.render);
 		this.listenTo(this.model, 'destroy', this.remove);
+		this.listenTo(this.model, 'change:functionString', this.switchString);
 		this.listenTo(this.model, 'change:focus', this.switchString);
 
 		this.render();
 	},
 
 	render: function(){
-		// console.log(this.template(this.model.toJSON()));
-		// this.$el.html(this.template(this.model.toJSON()));
+		this.$el.html(this.template(this.model.toJSON()));
 
 		return this.el;
 	},

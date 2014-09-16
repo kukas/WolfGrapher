@@ -1,9 +1,5 @@
-var Functions = Backbone.Collection.extend({
-	model: Function
-});
-
 var Grapher = Backbone.Model.extend({
-	functions: new Functions(),
+	formulas: new Formulas(),
 
 	camera: new Camera({
 		grapher: this
@@ -16,16 +12,23 @@ var Grapher = Backbone.Model.extend({
 		mouseDown: false,
 	},
 
-	input: new Function({
-		functionString: "x"
+	input: new Formula({
+		functionString: "x",
 	}),
 	inputView: null,
 
 	initialize: function(){
+		this.input.parent = this.formulas;
 		this.inputView = new InputView({
 			model: this.input,
 			
 			el: $(".grapher .function-add"),
+		});
+
+		this.functionsView = new FormulasView({
+			model: this.formulas,
+
+			el: $(".grapher .left.menu"),
 		});
 	},
 
