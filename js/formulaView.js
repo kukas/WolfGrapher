@@ -4,14 +4,15 @@ var FormulaView = Backbone.View.extend({
 	template: _.template($("#function-view-template").html()),
 
 	events: {
-		"click .function-id"       : "cycleColor",
-		"focus .function-edit"     : "focus",
-		"blur .function-edit"      : "focus",
-		"keyup .function-edit"     : "functionChange",
-		"keydown .function-edit"   : "suppressEnter",
-		"click .menu-roll"         : "menuRoll",
-		"click .toggle-visibility" : "toggleVisibility",
-		"click .remove"            : "remove",
+		"click .function-id"            : "cycleColor",
+		"focus .function-edit"          : "focus",
+		"blur .function-edit"           : "focus",
+		"keyup .function-edit"          : "functionChange",
+		"keydown .function-edit"        : "suppressEnter",
+		"click .menu-roll"              : "menuRoll",
+		"click .toggle-visibility"      : "toggleVisibility",
+		"click .remove"                 : "remove",
+		"mousewheel .scrollable-number" : "scrollNumber",
 	},
 
 	initialize: function(){
@@ -27,6 +28,25 @@ var FormulaView = Backbone.View.extend({
 		this.$el.html(this.template(this.model.toJSON()));
 
 		return this.el;
+	},
+
+	scrollNumber: function(e){
+		var el = $(e.currentTarget);
+		var currentNumber = parseFloat(el.html());
+		var deltaY = e.originalEvent.deltaY;
+		var sign = -deltaY/Math.abs(deltaY);
+		var add = 0;
+		if(currentNumber == 0){
+			add = 1;
+		}
+		else {
+			var exp = Math.log(Math.abs(currentNumber))/Math.log(10);
+			add = Math.pow(10, Math.ceil(exp)-2);
+		}
+
+		currentNumber += sign * add;
+
+		el.html(Math.round(currentNumber*1000)/1000);
 	},
 
 	toggleVisibility: function(){
