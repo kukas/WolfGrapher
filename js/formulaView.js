@@ -50,11 +50,13 @@ var FormulaView = Backbone.View.extend({
 	},
 
 	toggleVisibility: function(){
+		console.log("ahooj")
 		this.model.toggleVisibility();
+		this.render();
 	},
 
 	remove: function(){
-		this.model.remove();
+		this.model.destroy();
 	},
 
 	menuRoll: function(){
@@ -91,9 +93,12 @@ var FormulaView = Backbone.View.extend({
 	},
 
 	plot: function(ctx, camera, width){
+		if(!this.model.get("visible"))
+			return;
+
 		var xPixel = 1/camera.get("scale").x;
 		var lastY = 0;
-		var precision = 2;
+		var precision = 1;
 		// for(var x=bounds.topLeft.x; x<bounds.bottomRight.x; x+=xPixel){
 		ctx.beginPath();
 		for(var x=0; x<width; x += precision){

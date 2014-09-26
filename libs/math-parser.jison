@@ -29,6 +29,7 @@
 "X"                   return 'X'
 "T"                   return 'TIME'
 "E"                   return 'E'
+F[0-9]+\b             return 'FUNCTION'
 [A-Z]\b               return 'PARAMETER'
 "RANDOM"              return 'RANDOM'
 "PI"                  return 'PI'
@@ -210,6 +211,14 @@ e
         {$$ = {
             type: "parameter",
             value: $1
+            };}
+    | 'FUNCTION' '(' e ')'
+        {$$ = {
+            type: "function",
+            value: $1,
+            arguments: [
+                $3
+            ]
             };}
     | 'X'
         {$$ = {
