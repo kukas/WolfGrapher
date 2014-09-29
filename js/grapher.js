@@ -17,8 +17,12 @@ var Grapher = Backbone.Model.extend({
 	}),
 	inputView: null,
 
+	parameters: new Parameters(),
+	parametersView: null,
+
 	initialize: function(){
 		this.input.parent = this.formulas;
+		this.input.parameters = this.parameters;
 		this.inputView = new InputView({
 			model: this.input,
 			
@@ -29,6 +33,12 @@ var Grapher = Backbone.Model.extend({
 			model: this.formulas,
 
 			el: $(".grapher .left.menu"),
+		});
+
+		this.parametersView = new ParametersView({
+			model: this.parameters,
+
+			el: $(".grapher .right.menu .parameters"),
 		});
 	},
 

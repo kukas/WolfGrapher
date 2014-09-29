@@ -105,7 +105,6 @@ var Formula = Backbone.Model.extend({
 		this._f = this.treeToFunction(functionTree);
 		// }
 		// catch (e) {
-		// 	console.log("jop")
 		// 	this._f = false;
 		// }
 	},
@@ -120,7 +119,7 @@ var Formula = Backbone.Model.extend({
 
 	f: function(x){
 		if(this._f)
-			return this._f(x);
+			return this._f(x, this.parameters.getParameters());
 		else
 			return 0;
 	},
