@@ -11,7 +11,7 @@ var FormulaView = Backbone.View.extend({
 		"keydown .function-edit"        : "suppressEnter",
 		"click .menu-roll"              : "menuRoll",
 		"click .toggle-visibility"      : "toggleVisibility",
-		"click .remove"                 : "remove",
+		"click .remove"                 : "removeFormula",
 		"mousewheel .scrollable-number" : "scrollNumber",
 	},
 
@@ -55,7 +55,8 @@ var FormulaView = Backbone.View.extend({
 		this.render();
 	},
 
-	remove: function(){
+	removeFormula: function(){
+		// this.model.parent.remove(this.model);
 		this.model.destroy();
 	},
 

@@ -9,6 +9,7 @@ var InputView = FormulaView.extend({
 			this.$(".function-edit").blur();
 
 			var newFormula = new Formula(this.model.toJSON());
+			newFormula.parent = this.model.parent;
 			newFormula.parameters = this.model.parameters;
 
 			this.model.parent.add(newFormula);
