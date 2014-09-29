@@ -8,8 +8,8 @@ var InputView = FormulaView.extend({
 			e.preventDefault();
 			this.$(".function-edit").blur();
 
-			var newFormula = this.model.toJSON();
-			newFormula.parameters = this.parameters;
+			var newFormula = new Formula(this.model.toJSON());
+			newFormula.parameters = this.model.parameters;
 
 			this.model.parent.add(newFormula);
 
