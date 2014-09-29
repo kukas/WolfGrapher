@@ -96,30 +96,48 @@ var FormulaView = Backbone.View.extend({
 		if(!this.model.get("visible"))
 			return;
 
-		var xPixel = 1/camera.get("scale").x;
-		var lastY = 0;
+		var lastY = false;
 		var precision = 1;
-		// for(var x=bounds.topLeft.x; x<bounds.bottomRight.x; x+=xPixel){
-		ctx.beginPath();
+		var drawing = false;
+
 		for(var x=0; x<width; x += precision){
 			var tox = camera.tox(x);
 			var y = this.model.f(tox);
 
-			var tx = camera.tx(tox);
+			var tx = x;
 			var ty = camera.ty(y);
 
-			// if(camera.inCanvas(tx, ty)){
-				ctx.lineTo(tx, ty, 1, ty-lastY);
-				// ctx.fillRect(tx, ty, 1, ty-lastY);
-				// ctx.fillText(ty+" "+lastY, tx, ty);
-			// }
-			// else {
-			// 	ctx.stroke();
-			// 	ctx.closePath();
-			// }
+			if(camera.inCanvas(tx, ty)){
+				if(drawing){
+					ctx.lineTo(tx, ty);
+				}
+				else {
+					drawing = true;
+					ctx.beginPath();
+
+					if(lastY !== false){
+						ctx.moveTo(tx-1, lastY);
+						ctx.lineTo(tx, ty);
+					}
+					else {
+						ctx.moveTo(tx, ty);
+					}
+				}
+			}
+			else {
+				if(drawing){
+					drawing = false;
+
+					ctx.lineTo(tx, ty);
+					ctx.stroke();
+				}
+			}
 			lastY = ty;
 		}
-		ctx.stroke();
-		ctx.closePath();
+
+		if(drawing){
+			ctx.stroke();
+			ctx.closePath();
+		}
 	}
 });
