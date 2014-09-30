@@ -95,7 +95,16 @@ var Formula = Backbone.Model.extend({
 		var functionString = this.get("functionString");
 
 		if(this.get("eval")){
-			this._f = new Function("x", "params", functionString);
+			try {
+				this._f = new Function("x", "params", functionString);
+			}
+			catch (e){
+				console.log(e.message);
+
+				this._f = function(){
+					return NaN;
+				};
+			}
 		}
 		else {
 			var fancyString = functionString.replace(/-?[0-9]+(\.[0-9]+)?/g, "<span class='scrollable-number'>$&</span>");
@@ -104,15 +113,18 @@ var Formula = Backbone.Model.extend({
 			var parsedString = functionString.toUpperCase();
 			// doplní násobení mezi písmeno a číslo
 			parsedString = parsedString.replace(/([0-9]+)([A-Z(])/g, "$1*$2");
-			var functionTree = parser.parse(parsedString);
 
-			console.log(functionTree);
+			try {
+				var functionTree = parser.parse(parsedString);
+				this._f = this.treeToFunction(functionTree);
+			}
+			catch (e){
+				console.log(e.message);
 
-			this._f = this.treeToFunction(functionTree);
-			// }
-			// catch (e) {
-			// 	this._f = false;
-			// }
+				this._f = function(){
+					return NaN;
+				};
+			}
 		}
 	},
 

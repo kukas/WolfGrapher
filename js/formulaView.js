@@ -88,11 +88,7 @@ var FormulaView = Backbone.View.extend({
 	menuRoll: function(){
 		this.$el.height(200);
 	},
-
-	cycleColor: function(){
-		this.model.cycleColor();
-	},
-
+	
 	switchString: function(){
 		if(this.model.get("focus") || this.model.get("eval")){
 			this.$(".function-edit").text(this.model.get("functionString"));

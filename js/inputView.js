@@ -16,6 +16,7 @@ var InputView = FormulaView.extend({
 			this.model.parent.add(newFormula);
 
 			this.model.set("functionString", "");
+			this.switchString();
 
 			return false;
 		}
