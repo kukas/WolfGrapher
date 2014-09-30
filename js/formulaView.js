@@ -4,7 +4,6 @@ var FormulaView = Backbone.View.extend({
 	template: _.template($("#function-view-template").html()),
 
 	events: {
-		"click .function-id"            : "cycleColor",
 		"focus .function-edit"          : "focus",
 		"blur .function-edit"           : "focus",
 		"keyup .function-edit"          : "functionChange",
@@ -26,11 +25,31 @@ var FormulaView = Backbone.View.extend({
 		this.listenTo(this.model, "change:eval", this.render);
 
 		this.render();
+		
+	},
+
+	addColorPicker: function() {
+		var _this = this;
+
+		this.$(".function-id").colpick({
+			colorScheme:'dark',
+			// layout:'rgbhex',
+			layout:'hex',
+			color: this.model.get("color"),
+			onChange: function(hsb, hex, rgb, el) {
+				var color = '#'+hex;
+				_this.model.set("color", color)
+				$(el).css('background-color', color);
+			},
+			onSubmit: function(hsb, hex, rgb, el) {
+				$(el).colpickHide();
+			}
+		});
 	},
 
 	render: function(){
 		this.$el.html(this.template(this.model.toJSON()));
-
+		this.addColorPicker();
 		return this.el;
 	},
 
@@ -102,6 +121,9 @@ var FormulaView = Backbone.View.extend({
 	plot: function(ctx, camera, width){
 		if(!this.model.get("visible"))
 			return;
+
+		// ctx.fillStyle = "#D7D49A";
+		ctx.strokeStyle = this.model.get("color");
 
 		var lastY = false;
 		var precision = 1;

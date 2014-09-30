@@ -1,5 +1,6 @@
 var InputView = FormulaView.extend({
 	render: function(){
+		this.addColorPicker();
 		this.switchString();
 	},
 	suppressEnter: function(e){

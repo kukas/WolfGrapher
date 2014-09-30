@@ -85,9 +85,6 @@ var GrapherView = Backbone.View.extend({
 			}
 		}
 
-		ctx.fillStyle = "#D7D49A";
-		ctx.strokeStyle = "#D7D49A";
-		var precision = 2;
 		// funkce
 		this.model.inputView.plot(ctx, camera, width);
 		this.model.formulas.each(function(formula){

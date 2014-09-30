@@ -80,7 +80,7 @@ var Formula = Backbone.Model.extend({
 			// id: 0,
 			functionString: "",
 			fancyString: "",
-			color: "#4E5E5B",
+			color: "#D7D49A",
 			visible: true,
 			focus: false,
 			eval: false,
