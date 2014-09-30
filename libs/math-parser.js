@@ -531,13 +531,13 @@ case 23:return 27
 break;
 case 24:return 32
 break;
-case 25:return 29
+case 25:return 26
 break;
-case 26:return 28
+case 26:return 31
 break;
-case 27:return 26
+case 27:return 29
 break;
-case 28:return 31
+case 28:return 28
 break;
 case 29:return 5
 break;
@@ -545,7 +545,7 @@ case 30:return 'INVALID'
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:\*\*)/,/^(?:\^)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\()/,/^(?:\))/,/^(?:SQRT\b)/,/^(?:SIN\b)/,/^(?:ASIN\b)/,/^(?:COS\b)/,/^(?:ACOS\b)/,/^(?:TAN\b)/,/^(?:ATAN\b)/,/^(?:LOG\b)/,/^(?:ABS\b)/,/^(?:CEIL\b)/,/^(?:ROUND\b)/,/^(?:FLOOR\b)/,/^(?:X\b)/,/^(?:T\b)/,/^(?:E\b)/,/^(?:F[0-9]+\b)/,/^(?:[A-Z]\b)/,/^(?:RANDOM\b)/,/^(?:PI\b)/,/^(?:$)/,/^(?:.)/],
+rules: [/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:\*\*)/,/^(?:\^)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\()/,/^(?:\))/,/^(?:SQRT\b)/,/^(?:SIN\b)/,/^(?:ASIN\b)/,/^(?:COS\b)/,/^(?:ACOS\b)/,/^(?:TAN\b)/,/^(?:ATAN\b)/,/^(?:LOG\b)/,/^(?:ABS\b)/,/^(?:CEIL\b)/,/^(?:ROUND\b)/,/^(?:FLOOR\b)/,/^(?:X\b)/,/^(?:T\b)/,/^(?:E\b)/,/^(?:RANDOM\b)/,/^(?:PI\b)/,/^(?:F[0-9]+\b)/,/^(?:[A-Z][A-Z1-9]*\b)/,/^(?:$)/,/^(?:.)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],"inclusive":true}}
 };
 return lexer;

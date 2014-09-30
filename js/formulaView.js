@@ -11,6 +11,7 @@ var FormulaView = Backbone.View.extend({
 		"keydown .function-edit"        : "suppressEnter",
 		"click .menu-roll"              : "menuRoll",
 		"click .toggle-visibility"      : "toggleVisibility",
+		"click .toggle-eval"            : "toggleEval",
 		"click .remove"                 : "removeFormula",
 		"mousewheel .scrollable-number" : "scrollNumber",
 	},
@@ -18,8 +19,11 @@ var FormulaView = Backbone.View.extend({
 	initialize: function(){
 		// this.listenTo(this.model, "change", this.render);
 		this.listenTo(this.model, 'destroy', this.remove);
-		this.listenTo(this.model, 'change:functionString', this.switchString);
+		// this.listenTo(this.model, 'change:functionString', this.switchString);
 		this.listenTo(this.model, 'change:focus', this.switchString);
+
+		this.listenTo(this.model, "change:visible", this.render);
+		this.listenTo(this.model, "change:eval", this.render);
 
 		this.render();
 	},
@@ -32,7 +36,7 @@ var FormulaView = Backbone.View.extend({
 
 	scrollNumber: function(e){
 		var el = $(e.currentTarget);
-		var currentNumber = parseFloat(el.html());
+		var currentNumber = parseFloat(el.text());
 		var deltaY = e.originalEvent.deltaY;
 		var sign = -deltaY/Math.abs(deltaY);
 		var add = 0;
@@ -50,9 +54,11 @@ var FormulaView = Backbone.View.extend({
 	},
 
 	toggleVisibility: function(){
-		console.log("ahooj")
 		this.model.toggleVisibility();
-		this.render();
+	},
+
+	toggleEval: function(){
+		this.model.toggleEval();
 	},
 
 	removeFormula: function(){
@@ -69,8 +75,8 @@ var FormulaView = Backbone.View.extend({
 	},
 
 	switchString: function(){
-		if(this.model.get("focus")){
-			this.$(".function-edit").html(this.model.get("functionString"));
+		if(this.model.get("focus") || this.model.get("eval")){
+			this.$(".function-edit").text(this.model.get("functionString"));
 		}
 		else {
 			this.$(".function-edit").html(this.model.get("fancyString"));
@@ -82,11 +88,11 @@ var FormulaView = Backbone.View.extend({
 	},
 
 	functionChange: function(e){
-		this.model.set("functionString", this.$(".function-edit").html());
+		this.model.set("functionString", this.$(".function-edit").text());
 	},
 
 	suppressEnter: function(e){
-		if(e.keyCode == 13){
+		if(e.keyCode == 13 && !this.model.get("eval")){
 			e.preventDefault();
 			this.$(".function-edit").blur();
 			return false;

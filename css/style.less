@@ -27,6 +27,10 @@ body {
 	clear: both;
 }
 
+.fa.disabled {
+	text-decoration: line-through;
+}
+
 .grapher {
 	width: 100%;
 	height: 100%;
@@ -61,11 +65,11 @@ body {
 				display: block;
 				margin-left: 1.6em;
 				margin-right: 3em;
-				white-space: nowrap;
+				// white-space: nowrap;
 				overflow: hidden;
-				br {
-					display:none;
-				}
+				// br {
+				// 	display:none;
+				// }
 				// width: 100%;
 			}
 			.y-equals {
@@ -112,7 +116,13 @@ body {
 		position: absolute;
 		top: 0;
 		min-width: 25%;
+		width: 25%;
+		// resize: both;
 		height: 100%;
+
+		&.focused {
+			width: auto;
+		}
 
 		&.left {
 			left: 0;

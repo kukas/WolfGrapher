@@ -17,6 +17,7 @@
 	<script src="libs/backbone.min.js"></script>
 	<script src="libs/less-1.7.4.min.js"></script>
 	<script src="libs/math-parser.js"></script>
+	<script src="js/utils.js"></script>
 </head>
 <body>
 	<div class="grapher">
@@ -55,7 +56,12 @@
 				<% if (visible) { %>
 					<a href="#" class="toggle-visibility"><i class="fa fa-eye"></i></a>
 				<% } else { %>
-					<a href="#" class="toggle-visibility"><i class="fa fa-eye-slash"></i></a>
+					<a href="#" class="toggle-visibility"><i class="fa fa-eye-slash disabled"></i></a>
+				<% } %>
+				<% if (eval) { %>
+					<a href="#" class="toggle-eval"><i class="fa fa-cogs"></i></a>
+				<% } else { %>
+					<a href="#" class="toggle-eval"><i class="fa fa-cogs disabled"></i></a>
 				<% } %>
 				<a href="#" class="remove"><i class="fa fa-remove"></i></a>
 			</div>

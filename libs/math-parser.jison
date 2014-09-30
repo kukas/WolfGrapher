@@ -29,10 +29,10 @@
 "X"                   return 'X'
 "T"                   return 'TIME'
 "E"                   return 'E'
-F[0-9]+\b             return 'FUNCTION'
-[A-Z]\b               return 'PARAMETER'
 "RANDOM"              return 'RANDOM'
 "PI"                  return 'PI'
+F[0-9]+\b             return 'FUNCTION'
+[A-Z][A-Z1-9]*\b      return 'PARAMETER'
 
 <<EOF>>               return 'EOF'
 .                     return 'INVALID'

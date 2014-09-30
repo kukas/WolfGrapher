@@ -83,6 +83,7 @@ var Formula = Backbone.Model.extend({
 			color: "#4E5E5B",
 			visible: true,
 			focus: false,
+			eval: false,
 		};
 	},
 
@@ -92,21 +93,27 @@ var Formula = Backbone.Model.extend({
 
 	parseFormula: function(){
 		var functionString = this.get("functionString");
-		var fancyString = functionString.replace(/-?[0-9]+(\.[0-9]+)?/g, "<span class='scrollable-number'>$&</span>");
-		
-		// this.set("functionString", functionString);
-		this.set("fancyString", fancyString);
 
-		var parsedString = functionString.toUpperCase();
-		// doplní násobení mezi písmeno a číslo
-		parsedString = parsedString.replace(/([0-9]+)([A-Z(])/g, "$1*$2");
-		var functionTree = parser.parse(parsedString);
+		if(this.get("eval")){
+			this._f = new Function("x", "params", functionString);
+		}
+		else {
+			var fancyString = functionString.replace(/-?[0-9]+(\.[0-9]+)?/g, "<span class='scrollable-number'>$&</span>");
+			
+			this.set("fancyString", fancyString);
+			var parsedString = functionString.toUpperCase();
+			// doplní násobení mezi písmeno a číslo
+			parsedString = parsedString.replace(/([0-9]+)([A-Z(])/g, "$1*$2");
+			var functionTree = parser.parse(parsedString);
 
-		this._f = this.treeToFunction(functionTree);
-		// }
-		// catch (e) {
-		// 	this._f = false;
-		// }
+			console.log(functionTree);
+
+			this._f = this.treeToFunction(functionTree);
+			// }
+			// catch (e) {
+			// 	this._f = false;
+			// }
+		}
 	},
 
 	// http://jsperf.com/create-function-vs-parse-tree
@@ -127,5 +134,10 @@ var Formula = Backbone.Model.extend({
 	toggleVisibility: function() {
 		var visible = this.get("visible");
 		this.set("visible", !visible);
+	},
+
+	toggleEval: function() {
+		var isEval = this.get("eval");
+		this.set("eval", !isEval);
 	},
 });
